@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using MediatR;
+using MediatrExample.Core.Services;
 using MediatrExample.Infrastructure;
 using MediatrExample.Middlewares;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ IWebHostEnvironment environment = builder.Environment;
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSwaggerGen(options =>
 {
     options.CustomSchemaIds(type =>
