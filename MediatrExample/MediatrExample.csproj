@@ -15,5 +15,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
-
+    <ItemGroup>
+        <InternalsVisibleTo Include="IntegrationTest" />
+    </ItemGroup>
 </Project>

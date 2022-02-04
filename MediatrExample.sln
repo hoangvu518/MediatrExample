@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatrExample", "MediatrExample\MediatrExample.csproj", "{71257F4E-9245-4243-A5AC-A01D9719AFD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatrExample", "MediatrExample\MediatrExample.csproj", "{71257F4E-9245-4243-A5AC-A01D9719AFD6}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{070CE8B3-FEF4-4408-9463-B692BDCD6F62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{8E394B68-D60E-456D-A95F-F1496E66C98C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{070CE8B3-FEF4-4408-9463-B692BDCD6F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{070CE8B3-FEF4-4408-9463-B692BDCD6F62}.Release|Any CPU.Build.0 = Release|Any CPU
 		{070CE8B3-FEF4-4408-9463-B692BDCD6F62}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8E394B68-D60E-456D-A95F-F1496E66C98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E394B68-D60E-456D-A95F-F1496E66C98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E394B68-D60E-456D-A95F-F1496E66C98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E394B68-D60E-456D-A95F-F1496E66C98C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

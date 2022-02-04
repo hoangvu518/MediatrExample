@@ -16,7 +16,6 @@ namespace MediatrExample.Features.Student
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<GetById.Result>> Get(int id)
         {
@@ -26,7 +25,6 @@ namespace MediatrExample.Features.Student
 
         [HttpGet("all")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<GetAll.Result>> GetAll()
         {
@@ -36,7 +34,7 @@ namespace MediatrExample.Features.Student
 
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Create.Result>> Create([FromBody] Create.Command command)
         {
             var result = await _mediator.Send(command);
@@ -45,6 +43,7 @@ namespace MediatrExample.Features.Student
 
         [HttpPut()]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Update([FromBody] Update.Command command)
         {

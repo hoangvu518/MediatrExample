@@ -38,7 +38,7 @@ namespace MediatrExample.Middlewares
                         statusCode = (int)HttpStatusCode.InternalServerError;
                         break;
                 }
-
+                response.StatusCode = statusCode;
                 var result = JsonSerializer.Serialize(new ProblemDetails { Detail = exception.Message, Status = statusCode });
                 await response.WriteAsync(result);
             }
