@@ -27,7 +27,7 @@ namespace IntegrationTest.Features.Student
 
             //when
             var getAllResponse = await _testServer.HttpClient.GetAsync($"{PATH}/all");
-            var getData = await getAllResponse.Content.ReadFromJsonAsync<GetAll.Result>();
+            var getData = await getAllResponse.Content.ReadFromJsonAsync<GetList.Result>();
 
             //then
             getAllResponse.StatusCode.Should().Be(HttpStatusCode.OK);

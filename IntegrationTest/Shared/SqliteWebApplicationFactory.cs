@@ -1,6 +1,7 @@
 ﻿using MediatrExample.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,7 @@ namespace IntegrationTest.Shared
                 {
                     options.UseSqlite(_connection);
                 });
+                
                 var sp = services.BuildServiceProvider();
 
                 using (var scope = sp.CreateScope())

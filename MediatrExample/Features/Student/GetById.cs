@@ -24,7 +24,7 @@ namespace MediatrExample.Features.Student
                 var student = await _db.Student.FindAsync(query.Id);
                 if (student == null)
                 {
-                    throw new ResourceNotFoundException(ErrorMessage.NotFoundId("Student", query.Id));
+                    throw new ResourceNotFoundException(ErrorMessage.NotFound("Student", query.Id));
                 }
                 var result = new Result(student.Id,student.FirstName, student.LastName);
                 return result;

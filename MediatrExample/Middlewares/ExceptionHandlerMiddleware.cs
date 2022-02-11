@@ -16,6 +16,7 @@ namespace MediatrExample.Middlewares
 
         public async Task Invoke(HttpContext httpContext, IWebHostEnvironment env)
         {
+            
             try
             {
                 await _next(httpContext);

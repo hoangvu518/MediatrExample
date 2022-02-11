@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MediatrExample.Features.Student
 {
-    [Route("api/[controller]")]
+    [Route("api/students")]
     [ApiController]
     public class StudentController : ControllerBase
     {
@@ -18,19 +18,18 @@ namespace MediatrExample.Features.Student
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<GetById.Result>> Get(int id)
+        public async Task<ActionResult<GetById.Result>> GetBy(int id)
         {
             var result = await _mediator.Send(new GetById.Query(id));
             return Ok(result);
         }
 
-        [HttpGet("all")]
+        [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<GetAll.Result>> GetAll()
+        public async Task<ActionResult<GetList.Result>> Get()
         {
-            var result = await _mediator.Send(new GetAll.Query());
+            var result = await _mediator.Send(new GetList.Query());
             return Ok(result);
         }
 

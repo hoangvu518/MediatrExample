@@ -2,10 +2,10 @@
 {
     public static class Update
     {
-        public record Command(int Id, string FirstName, string LastName) : IRequest<Unit>
+        public record Command(int Id, string FirstName, string LastName) : IRequest
         {
         }
-        public class Handler : IRequestHandler<Command, Unit>
+        public class Handler : AsyncRequestHandler<Command>
         {
             private readonly AppDb _db;
 
@@ -14,7 +14,7 @@
                 _db = db;
             }
 
-            public async Task<Unit> Handle(Command command, CancellationToken token)
+            protected override async Task Handle(Command command, CancellationToken cancellationToken)
             {
                 var editStudent = await _db.Student.FindAsync(command.Id);
                 if (editStudent == null)
@@ -23,8 +23,7 @@
                 }
 
                 editStudent.Update(command.FirstName, command.LastName);
-                await _db.SaveChangesAsync(); 
-                return Unit.Value;
+                await _db.SaveChangesAsync();
             }
         }
 
