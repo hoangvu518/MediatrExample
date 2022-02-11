@@ -19,7 +19,7 @@
                 var editStudent = await _db.Student.FindAsync(command.Id);
                 if (editStudent == null)
                 {
-                    throw new ResourceNotFoundException(ErrorMessage.NotFoundId("Student", command.Id));
+                    throw new ResourceNotFoundException(ErrorMessage.NotFound("Student", command.Id));
                 }
 
                 editStudent.Update(command.FirstName, command.LastName);

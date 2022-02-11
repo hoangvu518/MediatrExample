@@ -8,10 +8,14 @@ namespace MediatrExample.Middlewares
     public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next)
+        public ExceptionHandlerMiddleware(RequestDelegate next, IHttpContextAccessor httpContextAccessor, ILogger<ExceptionHandlerMiddleware> logger)
         {
             _next = next;
+            _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext httpContext, IWebHostEnvironment env)
@@ -19,7 +23,10 @@ namespace MediatrExample.Middlewares
             
             try
             {
+                var test = _httpContextAccessor.HttpContext;
+                _logger.LogInformation("Request middleware");
                 await _next(httpContext);
+                _logger.LogInformation("Response middleware");
             }
             catch (Exception exception)
             {

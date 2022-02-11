@@ -9,9 +9,11 @@ namespace MediatrExample.Features.Student
     public class StudentController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public StudentController(IMediator mediator)
+        private readonly ILogger _logger;
+        public StudentController(IMediator mediator, ILogger<StudentController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -20,6 +22,7 @@ namespace MediatrExample.Features.Student
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<GetById.Result>> GetBy(int id)
         {
+            _logger.LogInformation("GetBy is called");
             var result = await _mediator.Send(new GetById.Query(id));
             return Ok(result);
         }
@@ -29,6 +32,7 @@ namespace MediatrExample.Features.Student
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<GetList.Result>> Get()
         {
+            _logger.LogInformation("Get List is called");
             var result = await _mediator.Send(new GetList.Query());
             return Ok(result);
         }

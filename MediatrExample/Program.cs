@@ -5,17 +5,46 @@ using MediatrExample.Infrastructure;
 using MediatrExample.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-
+using Microsoft.AspNetCore.Routing;
+using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Compact;
+using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog((hostbuilderContext, loggerConfiguration) => loggerConfiguration.MinimumLevel.Information()
+                                                                                         .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                                                                                         .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+
+                                                                                         .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                                                                                         .Enrich.FromLogContext()
+                                                                                         .Enrich.WithEnvironmentName()
+                                                                                         .Enrich.WithMachineName()
+                                                                                        .WriteTo.Console()
+                                                                                        .WriteTo.File(new CompactJsonFormatter(), "log.text")
+                                                                                        ); ;
 ConfigurationManager configuration = builder.Configuration;
 IWebHostEnvironment environment = builder.Environment;
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<SecurityAuditLogService>();
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+//builder.Services.AddHttpLogging(options => // <--- Setup logging
+//{
+//    // Specify all that you need here:
+//    options.LoggingFields = HttpLoggingFields.RequestHeaders |
+//                            HttpLoggingFields.RequestBody |
+//                            HttpLoggingFields.ResponseHeaders |
+//                            HttpLoggingFields.ResponseBody;
+//});
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSwaggerGen(options =>
 {
     options.CustomSchemaIds(type =>
@@ -57,14 +86,19 @@ builder.Services.AddDbContext<AppDb>(options =>
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 var app = builder.Build();
 
+//app.UseHttpLogging();
+app.UseSerilogRequestLogging();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+//app.UseMiddleware<EnableRequestBodyBufferingMiddleware>();
+app.UseMiddleware<RequestResponseLoggerMiddleware>();
 app.UseMiddleware<ExceptionHandlerMiddleware>();
+//app.UseMiddleware<SecurityAuditLogMiddleware>();
+
 
 app.UseAuthorization();
 
