@@ -95,7 +95,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 //app.UseMiddleware<EnableRequestBodyBufferingMiddleware>();
-app.UseMiddleware<RequestResponseLoggerMiddleware>();
+//app.UseMiddleware<RequestResponseLoggerMiddleware>();
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 //app.UseMiddleware<SecurityAuditLogMiddleware>();
 

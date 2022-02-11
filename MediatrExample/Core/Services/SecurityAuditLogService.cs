@@ -51,7 +51,6 @@ namespace MediatrExample.Core.Services
         public string HttpMethod { get; set; }
         public string RequestPath { get; set; }
         public string RequestBody { get; set; }
-        [JsonSerializable(ty)]
         public string ResponseBody { get; set; }
         public int HttpStatusCode { get; set; }
     }

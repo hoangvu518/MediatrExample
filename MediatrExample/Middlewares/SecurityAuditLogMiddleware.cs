@@ -23,5 +23,4 @@
 //        }
 //    }
 //}
-namespace MediatrExample.Middlewares
-public class Test
+
